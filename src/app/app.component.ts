@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Article, SearchService } from './pages/search/service/search.service';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'api_wiki';
+  articles$ :Observable<Article[]>
+  constructor(private readonly searchSvc: SearchService) { }
+
+  onSearch(term:string): void{
+    this.articles$ = this.searchSvc.search(term);
+  }
 }
